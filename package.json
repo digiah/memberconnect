@@ -1,0 +1,19 @@
+{
+  "name": "DAHI",
+  "version": "0.0.1",
+  "description": "DAHI membership list",
+  "main": "index.js",
+  "scripts": {
+    "test": "xo"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "4.0.0",
+    "express": "4.14.1",
+    "mysql": "2.13.0"
+  },
+  "devDependencies": {
+    "xo": "0.17.1"
+  }
+}
