@@ -36,3 +36,17 @@ I am thinking something like several spaces:
 
 @kelseykato and @damg70 had discussed the front end as some sort of gaming interface.  They can fill that in.  
 
+
+# Local Installation
+
+Prerequesites ([Node](https://nodejs.org/))
+
+```
+  git clone https://github.com/digiah/memberconnect.git
+  
+  cd /memberconnect
+
+  npm install
+  
+  node index.js
+```
