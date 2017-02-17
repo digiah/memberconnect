@@ -39,14 +39,14 @@ I am thinking something like several spaces:
 
 # Local Installation
 
-Prerequesites ([Node](https://nodejs.org/))
+Prerequisites ([Node](https://nodejs.org/))
 
 ```
-  git clone https://github.com/digiah/memberconnect.git
+git clone https://github.com/digiah/memberconnect.git
   
-  cd /memberconnect
+cd /memberconnect
 
-  npm install
+npm install
   
-  node index.js
+node index.js
 ```
