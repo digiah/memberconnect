@@ -50,3 +50,15 @@ npm install
   
 node index.js
 ```
+
+### Description
+
+Served up with PM2 and Apache 
+
+#### Things Changed
+
+Bottom of Apache httpd.conf file
+
+```
+pm2 list
+```
