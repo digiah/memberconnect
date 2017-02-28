@@ -15,7 +15,7 @@ MongoClient.connect('mongodb://localhost:27017/memberconnect', function (err, d)
 const app = express();
 
 app.get('/test/:param', (req, res) => {
-	console.log(db.people.find());
+	console.log(db.collection('people').find());
 	res.send('lol');
 });
 
