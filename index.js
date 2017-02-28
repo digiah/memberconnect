@@ -4,19 +4,17 @@ const express = require('express');
 const MongoClient = require('mongodb');
 require('dotenv').config();
 
-var db;
-MongoClient.connect('mongodb://localhost:27017/memberconnect', function (err, d) {
-	if (err) {
-		return console.error('Connection Error. Database error.');
-	}
-	db = d;
-});
-
 const app = express();
 
 app.get('/test/:param', (req, res) => {
-	console.log(db.collection('people').find({email: 'stevenb@hawaii.edu'}));
-	res.send('lol');
+	MongoClient.connect('mongodb://localhost:27017/memberconnect', function (err, db) {
+		if (err) {
+  	   return console.error('Connection Error. @mongodb');
+		}
+		const query = db.collection('people').find();
+		db.close();
+		res.send(query);
+	});
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
