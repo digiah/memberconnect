@@ -13,12 +13,12 @@ const db = MongoClient.connect('mongodb://localhost:27017/memberconnect', functi
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '/public')));
-
 app.get('/test/:param', (req, res) => {
 	console.log(db);
 	res.send('lol');
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(process.env.PORT, () => console.log(`💕  Its happening on port ${process.env.PORT || 9696} 💕`));
 
