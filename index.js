@@ -12,6 +12,7 @@ app.get('/test/:param', (req, res) => {
   	   return console.error('Connection Error. @mongodb');
 		}
 		db.close();
+		console.log(db.collection('people'))
 		res.send(simpleStringify(db.collection('people').find()));
 	});
 });
