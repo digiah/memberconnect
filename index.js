@@ -11,9 +11,9 @@ app.get('/test/:param', (req, res) => {
 		if (err) {
   	   return console.error('Connection Error. @mongodb');
 		}
-		const query = db.collection('people').find();
+		var database = MongoClient.db('memberconnect');
 		db.close();
-		res.send(query);
+		res.send(database.collection('people').find());
 	});
 });
 
