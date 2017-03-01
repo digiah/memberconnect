@@ -12,10 +12,26 @@ app.get('/test/:param', (req, res) => {
   	   return console.error('Connection Error. @mongodb');
 		}
 		db.close();
-		res.send(db.collection('people').find());
+		res.send(simpleStringify(db.collection('people').find()));
 	});
 });
 
+function simpleStringify (object){
+    var simpleObject = {};
+    for (var prop in object ){
+        if (!object.hasOwnProperty(prop)){
+            continue;
+        }
+        if (typeof(object[prop]) == 'object'){
+            continue;
+        }
+        if (typeof(object[prop]) == 'function'){
+            continue;
+        }
+        simpleObject[prop] = object[prop];
+    }
+    return JSON.stringify(simpleObject); // returns cleaned up JSON
+};
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(process.env.PORT, () => console.log(`💕  Its happening on port ${process.env.PORT || 9696} 💕`));
