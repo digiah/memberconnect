@@ -24,7 +24,8 @@ app.get('/test/:param', (req, res) => {
 			data.forEach(e => {
 				let found = false;
 				for (let key in e) {
-					if (e[key].includes(req.params.param)) {
+					console.log(e[key].toString());
+					if (e[key].toString().toLowerCase().includes(req.params.param.toLowerCase())) {
 						found = true;
 					}
 				}
