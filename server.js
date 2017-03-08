@@ -22,11 +22,16 @@ app.get('/test/:param?', (req, res) => {
 		query(function (data) {
 			let valid = [];
 			if (req.params.param) {
+				let params = req.params.param.split('+');
 				data.forEach(e => {
 					let found = false;
 					for (let key in e) {
-						if (e[key].toString().toLowerCase().includes(req.params.param.toLowerCase())) {
-							found = true;
+						if (e[key]) {
+							for (let i = 0; i < params.length; i++) {
+								if (e[key].toString().toLowerCase().includes(params[i].toLowerCase())) {
+									found = true;
+								}
+							}
 						}
 					}
 					if (found) {
