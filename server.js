@@ -22,25 +22,25 @@ app.get('/test/:param?', (req, res) => {
 		query(function (data) {
 			let valid = [];
 			if (req.params.param) {
-				const params = req.params.param.split('+');
-				console.log(params);
-				data.forEach(e => {
-					let found = false;
-					for (let key in e) {
-						if (e[key]) {
-							for (let i = 0; i < params.length; i++) {
-								if (params[i].includes('=')) {
-									let temp = params[i].split('=');
-									if (e[temp[0]]) {
-										if (e[temp[0]].toString().toLowerCase().includes(temp[1].toLowerCase())) {
-											found = true;
-										}
-									}
-								} else {
-									if (e[key].toString().toLowerCase().includes(params[i].toLowerCase())) {
+				const params = req.params.param.split('|');
+				data.forEach(e => { // Loops over all the JSON objects in the MongoDB
+					let found = false; // Each Object is initially 'false', based on the parameters given it can be made 'true' and pushed into
+					for (let key in e) { // Loops over all the keys in each individual 'data' object
+						for (let i = 0; i < params.length; i++) {
+							if (params[i].includes('=')) {
+								const keyValue = params[i].split('=');
+								if (e[keyValue[0]] !== null || e[keyValue[0]] !== undefined) {
+									if (e[keyValue[0]].toString().toLowerCase().includes(keyValue[1].toLowerCase())) {
 										found = true;
 									}
+								}	else {
+									res.json({
+										errorCode: '404',
+										message: `"${keyValue[0]} is not a valid key value."`
+									});
 								}
+							} else if (e[key].toString().toLowerCase().includes(params[i].toLowerCase())) {
+								found = true;
 							}
 						}
 					}
