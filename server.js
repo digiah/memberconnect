@@ -22,14 +22,24 @@ app.get('/test/:param?', (req, res) => {
 		query(function (data) {
 			let valid = [];
 			if (req.params.param) {
-				let params = req.params.param.split('+');
+				const params = req.params.param.split('+');
+				console.log(params);
 				data.forEach(e => {
 					let found = false;
 					for (let key in e) {
 						if (e[key]) {
 							for (let i = 0; i < params.length; i++) {
-								if (e[key].toString().toLowerCase().includes(params[i].toLowerCase())) {
-									found = true;
+								if (params[i].includes('=')) {
+									let temp = params[i].split('=');
+									if (e[temp[0]]) {
+										if (e[temp[0]].toString().toLowerCase().includes(temp[1].toLowerCase())) {
+											found = true;
+										}
+									}
+								} else {
+									if (e[key].toString().toLowerCase().includes(params[i].toLowerCase())) {
+										found = true;
+									}
 								}
 							}
 						}
