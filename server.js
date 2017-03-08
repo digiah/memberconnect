@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 
 app.get('/test/:param?', (req, res) => {
-	MongoClient.connect('mongodb://localhost:27017/memberconnect', function (err, db) {
+	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
 		if (err) {
 			return console.error('Connection Error. @mongodb');
 		}
