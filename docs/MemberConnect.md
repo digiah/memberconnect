@@ -13,8 +13,8 @@
    * http://dahi.manoa.hawaii.edu/njs/memberconnect/data/first_name=richard|his$
 
 ## MongoDB
-- We have a main user for the MongoDB called ```dev```, with a password of ```p@ssword1```.
-    * ```mongo --port 27017 -u "dev" -p "p@ssword1" --authenticationDatabase "memberconnect"```
+- We have a main user for the MongoDB called ```dev```, with a secret password.
+    * ```mongo --port 27017 -u "dev" -p "{password}" --authenticationDatabase "memberconnect"```
 
 
 
