@@ -7,14 +7,14 @@
     * ```ProxyPass /njs http://localhost:9696```
 
 ## Data Query Routes
-- To query for data from the MongoDB, use the following route. ``http://dahi.manoa.hawaii.edu/njs/memberconnect/data/```
+- To query for data from the MongoDB, use the following route. ```http://dahi.manoa.hawaii.edu/njs/memberconnect/data/```
    * http://dahi.manoa.hawaii.edu/njs/memberconnect/data/richard|david
    * http://dahi.manoa.hawaii.edu/njs/memberconnect/data/first_name=richard
    * http://dahi.manoa.hawaii.edu/njs/memberconnect/data/first_name=richard|his$
 
 ## MongoDB
-- We have a main user for the MongoDB called ```dev```, with a secret password.
-    * ```mongo --port 27017 -u "dev" -p "{password}" --authenticationDatabase "memberconnect"```
+- We have a main user for the MongoDB with a secret password.
+    * ```mongo --port 27017 -u "{user}" -p "{password}" --authenticationDatabase "memberconnect"```
 
 
 
