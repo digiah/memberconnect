@@ -3,8 +3,12 @@ const express = require('express');
 const MongoClient = require('mongodb');
 
 const router = express.Router();
+function allowCrossDomain(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	next();
+}
 
-router.get('/data/:param?', (req, res) => {
+router.get('/data/:param?', allowCrossDomain, (req, res) => {
 	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
 		if (err) {
 			return console.error('Connection Error. @mongodb');
