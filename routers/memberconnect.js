@@ -21,6 +21,16 @@ router.get('/data/:param?', (req, res) => {
 			const valid = [];
 			if (req.params.param) {
 				const params = req.params.param.split('|');
+				const keys = ['first_name', 'last_name', 'affiliation', 'role', 'video_link', 'video', 'email', 'website_link'];
+				if (params.length === 1 && keys.includes(params[0])) {
+					console.log(params[0]);
+					data.forEach(e => {
+						let temp = {};
+						temp[`${params[0]}`] = e[params[0]];
+						valid.push(temp);
+						return valid;
+					});
+				}
 				data.forEach(e => { // Loops over all the JSON objects in the MongoDB
 					let found = false; // Each Object is initially 'false', based on the parameters given it can be made 'true' and pushed into
 					for (let key in e) { // Loops over all the keys in each individual 'data' object
