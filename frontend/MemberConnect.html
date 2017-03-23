@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style>
+
+body
+{
+  background-color: #e0fcf2;
+  margin-bottom: 200%;
+}
+.container
+{
+  border-width: 5px;
+  border-style: solid;
+  border-color: #7af9de;
+  padding: 10px;
+  margin: auto;
+  width: 300px;
+  height: 300px;
+  font-family: 'Crimson Text', serif;
+  font-size: 16px;
+  color: #319b85;
+}
+h1, h2, input, label
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 75px;
+
+}
+h2
+{
+  font-size: 32px;
+  margin-left: 100px;
+}
+input[type="submit"] 
+{
+  font-family: 'Crimson Text', serif;
+  font-size: 16px;
+  color: #319b85;
+  margin-left: 110px;
+}
+input[type="text"], input[type="email"]
+
+{
+  border: 2px solid #ccc;
+  width: 150px;
+}
+
+#pagecontainer
+{
+	min-width: 1000px;
+  min-height: 100px;
+	background-color: inherit;
+	margin: auto;
+}
+
+</style>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Playfair+Display|Raleway" rel="stylesheet">
+
+  <script>
+    $(document).ready(function() {     
+    
+    });
+
+  </script>
+</head>
+
+<body>
+  //What is mandatory and optional, duplicates (name and email), checking for js or any script in input fields
+  //Any field search
+  <div id="pagecontainer">
+    <div class="container" id="user">
+      <h1>User Info</h1>
+      <form action="">
+        <label>First Name:</label> <input type="text" name="first_name" placeholder="Ava">
+        <label>Last Name:</label> <input type="text" name="last_name" placeholder="James">
+        <label>Email: </label> <input type="email" name="email" placeholder="avajames@gmail.com"><br />
+        <label>Area of Interest:</label> <input type="text" name="interest" placeholder="American Studies"></label>
+        <label></label>
+        <input type="submit" name="submit">
+      </form>
+    </div>
+    <div class="container" id="search">
+      <h2>Search</h2>
+      <div id="searchbar">
+        <form>     
+          <input type="text" name="search" placeholder="search...">
+        </form>
+      </div>
+       <script>
+      $( "#searchbar" ).click(function() {
+        $( "input[name='search']" ).animate({
+          width: "200px"
+        }, {
+          duration: 500
+        })
+      });
+      $.getJSON("http://dahi.manoa.hawaii.edu/njs/memberconnect/data/first_name", function (data) {
+        console.log(data);
+      });
+    </script>
+    </div>
+</div>
+</body>
+</html>
