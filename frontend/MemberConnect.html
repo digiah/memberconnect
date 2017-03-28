@@ -71,17 +71,16 @@ input[type="text"], input[type="email"]
 </head>
 
 <body>
-  //What is mandatory and optional, duplicates (name and email), checking for js or any script in input fields
-  //Any field search
+  <!--What is mandatory and optional, duplicates (name and email), checking for js or any script in input fields; any field search should pull results from somehwere in the database-->
   <div id="pagecontainer">
     <div class="container" id="user">
       <h1>User Info</h1>
       <form action="">
         <label>First Name:</label> <input type="text" name="first_name" placeholder="Ava">
         <label>Last Name:</label> <input type="text" name="last_name" placeholder="James">
-        <label>Email: </label> <input type="email" name="email" placeholder="avajames@gmail.com"><br />
+        <label>Email: </label> <input type="email" name="email" placeholder="avajames@gmail.com">
         <label>Area of Interest:</label> <input type="text" name="interest" placeholder="American Studies"></label>
-        <label></label>
+        <br />
         <input type="submit" name="submit">
       </form>
     </div>
@@ -91,6 +90,7 @@ input[type="text"], input[type="email"]
         <form>     
           <input type="text" name="search" placeholder="search...">
         </form>
+        <div id="searchupdate"></div>
       </div>
        <script>
       $( "#searchbar" ).click(function() {
@@ -100,11 +100,23 @@ input[type="text"], input[type="email"]
           duration: 500
         })
       });
-      $.getJSON("http://dahi.manoa.hawaii.edu/njs/memberconnect/data/first_name", function (data) {
-        console.log(data);
+      $("#searchbar").keyup(function(){
+        var searchField = $('#searchbar').val();
+        var myExp = new RegExp(searchField, 'i');
+        $.getJSON("http://dahi.manoa.hawaii.edu/njs/memberconnect/data/first_name", function (data) {
+          console.log(data);
+          var output = '<ul class="searchresult">';
+          if(val.first_name.searchbar(myExp) != -1) {
+            output +='<li>';
+            output +='<h2>' + val.first_name + '</h2>';
+            output +='</li>';
+          }
+        });
+        output += '</ul>';
+        $('#searchupdate').html(output);
       });
     </script>
     </div>
-</div>
+  </div>
 </body>
 </html>
