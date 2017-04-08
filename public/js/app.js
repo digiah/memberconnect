@@ -1,11 +1,16 @@
-const App = angular.module('app', []);
+const App = angular.module('app', ['angularUtils.directives.dirPagination']);
 App.controller('controller', function ($scope, $http) {
+  $scope.query = '';
   $scope.loading = true;
+  $scope.currentPage = 1;
+  $scope.pageSize = 9;
+  $scope.pageChangeHandler = function(num) {
+    console.log('meals page changed to ' + num);
+  };
   $http.get('http://dahi.manoa.hawaii.edu/njs/memberconnect/data')
   .then(function(data) {
     console.log(data.data[0]);
     $scope.data = data.data;
-    $scope.query = {};
     $scope.loading = false;
     function toTitleCase(str) {
       return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -20,4 +25,9 @@ App.controller('controller', function ($scope, $http) {
     }, 250);
     // $scope.$apply();
   });
+});
+App.controller('queryController', function ($scope) {
+  $scope.pageChangeHandler = function(num) {
+    console.log('going to page ' + num);
+  };
 });
