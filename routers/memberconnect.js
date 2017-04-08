@@ -2,8 +2,12 @@
 const express = require('express');
 const MongoClient = require('mongodb');
 const cors = require('cors');
+const path = require('path');
 
 const router = express.Router();
+console.log(__dirname)
+router.use(express.static(path.join(__dirname, '/../', 'public')));
+
 router.use(cors());
 
 router.get('/data/:param?', (req, res) => {
