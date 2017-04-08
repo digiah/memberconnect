@@ -7,8 +7,8 @@
 	<title>Member Connect</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="/css/ghpages-materialize.css">
-	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="stylesheet" href="/njs/css/ghpages-materialize.css">
+	<link rel="stylesheet" href="/njs/css/styles.css">
 </head>
 <body ng-app="app" ng-controller="controller">
 	<nav>
@@ -61,7 +61,9 @@
 						</div>
 						<div class="card-reveal">
 							<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-							<p>Here is some more information about this product that is only revealed once clicked on.</p>
+							<ul class="interest-list">
+								<li class="interest-item" ng-repeat="e in e.interests track by $index">{{e}}</li>
+							</ul>
 						</div>
 					</div>
 				</div>

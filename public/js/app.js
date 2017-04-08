@@ -7,9 +7,8 @@ App.controller('controller', function ($scope, $http) {
   $scope.pageChangeHandler = function(num) {
     console.log('meals page changed to ' + num);
   };
-  $http.get('http://dahi.manoa.hawaii.edu/njs/memberconnect/data')
+  $http.get('/data')
   .then(function(data) {
-    console.log(data.data[0]);
     $scope.data = data.data;
     $scope.loading = false;
     function toTitleCase(str) {
