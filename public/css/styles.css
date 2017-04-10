@@ -1,5 +1,12 @@
 #cards {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-around;
+}
+.card{
+  position:relative;
+  margin:.5rem 0 1rem 0;
+  background-color:#fff;
+  transition:box-shadow .25s;
+  border-radius:2px;
 }
