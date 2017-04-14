@@ -3,13 +3,21 @@ const path = require('path');
 const express = require('express');
 const MongoClient = require('mongodb');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(cors());
+
+app.get('/create', (req, res) => res.sendFile(path.join(__dirname, 'public/create.html')));
+
+app.post('/create', (req, res) => {
+	console.log(req.body);
+});
 
 app.get('/data/:param?', (req, res) => {
 	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
