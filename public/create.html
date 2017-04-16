@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Create</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/css/ghpages-materialize.css">
+	<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">Member Connect - Sign Up</a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+     <form method="post" action="/create" class="col s12">
+       <div class="row">
+         <div class="input-field col s6">
+           <input id="first_name" type="text" class="validate" name="first_name">
+           <label for="first_name">First Name</label>
+         </div>
+         <div class="input-field col s6">
+           <input id="last_name" type="text" class="validate" name="last_name">
+           <label for="last_name">Last Name</label>
+         </div>
+       </div>
+       <div class="row">
+         <div class="input-field col s6">
+           <input id="affiliation" type="text" class="validate" name="affiliation">
+           <label for="affiliation">Affiliation</label>
+         </div>
+         <div class="input-field col s6">
+           <input id="role" type="text" class="validate" name="role">
+           <label for="role">Role</label>
+         </div>
+       </div>
+       <div class="row">
+         <div class="input-field col s6">
+           <input id="website_link" type="text" class="validate" name="website_link">
+           <label for="website_link">Website Link</label>
+         </div>
+         <div class="input-field col s6">
+           <input id="video_link" type="text" class="validate" name="video_link">
+           <label for="video_link">Video Link</label>
+         </div>
+       </div>
+       <div class="row">
+         <div class="input-field col s12">
+           <input id="email" type="email" class="validate">
+           <label for="email">Email</label>
+         </div>
+       </div>
+       <center>
+         <input class="waves-effect waves-light btn-large" type="submit" value="Submit">
+       </center>
+     </form>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</body>
+</html>

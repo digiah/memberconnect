@@ -1,45 +1,112 @@
-<!doctype html>
-
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<link href="//fonts.googleapis.com/css?family=Crimson+Text|Playfair+Display|Raleway" rel="stylesheet">
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="//dahi.manoa.hawaii.edu/njs/styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Member Connect</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/css/ghpages-materialize.css">
+	<link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
-	<div style="color: antiquewhite; font-size: 200%; text-align: center; font-family: Raleway" >
-		<h1>A R C H I V E &nbsp o f &nbsp S I L E N C E </h1>
-	</div>
-	<div class="currentpoem-left">
-		<button class="currentpoem-button fade-in">C u r r e n t</button>
-		<div class="currentpoem-content">
-			<p>
-			Even after hum is gone there is
-			hum instead of like this line -
-			there is no line after this line
-			except I push more into blank.
-
-			Air conditioners - they are a blank -
-			they are hum - they make and remain
-			sound unmaking condition.</p>
+<body class="container" ng-app="app" ng-controller="controller">
+	<nav>
+		<div class="nav-wrapper">
+			<a href="/" class="brand-logo center">Member Connect</a>
+			<ul class="right hide-on-med-and-down">
+				<!-- <li><a href="#">Sass</a></li>
+				<li><a href="#">Components</a></li>
+				<li><a href="#">JavaScript</a></li> -->
+			</ul>
 		</div>
+	</nav>
+	<div class="container">
+		<center ng-show="loading">
+			<br />
+			<div class="preloader-wrapper big active">
+			 <div class="spinner-layer spinner-blue">
+				 <div class="circle-clipper left">
+					 <div class="circle"></div>
+				 </div><div class="gap-patch">
+					 <div class="circle"></div>
+				 </div><div class="circle-clipper right">
+					 <div class="circle"></div>
+				 </div>
+			 </div>
+		 </div>
+	 </center>
+		<div class="row">
+			<br />
+			<nav>
+				<div class="nav-wrapper">
+					<form>
+						<div class="input-field">
+							<input ng-model="query" id="search" type="search" required>
+							<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+							<i class="material-icons">close</i>
+						</div>
+					</form>
+				</div>
+			</nav>
+			<div id="cards" class="col s12 cards-container">
+				<div dir-paginate="e in data | filter:query | itemsPerPage: pageSize track by $index" current-page="currentPage" class="col m4">
+					<div class="card light-blue darken-1">
+						<div class="card-content white-text">
+							<span class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
+							<span class="card-subtitle">{{e.role}}</span>
+							<!-- <p>Blah Blah Blah Description</p> -->
+						</div>
+						<center>
+							<span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span>
+						</center>
+						<div class="card-action center-align">
+							<a style="margin-right: 0px;"ng-if="e.email" href="mailto:{{e.email}}"><i class="material-icons">email</i></a>
+							<!-- <a href="#">This is a link</a> -->
+						</div>
+						<div class="card-reveal">
+							<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
+							<h6 ng-show="e.interests.length">Interests</h6>
+							<ol class="interest-list">
+								<li class="interest-item" ng-repeat="e in e.interests track by $index">{{e}}</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+      </div>
+    </div>
+		<center ng-controller="queryController">
+			<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
+		</center>
 	</div>
-
-	<div class="poemaudio-center fade-in">Audio</div>
-	<div class="poemmap-right">
-		<button class="poemmap-button fade-in">P o e m &nbsp M a p</button>
-		<div class="poemmap-content">
-			<a class= "fade-in" href="#">KUY 712</a>
-			<a class= "fade-in" href="#">KUY stairwell, floors 1-7</a>
-			<a class= "fade-in" href="#">Bilger Courtyard</a>
-			<a class= "fade-in" href="#">Hamilton Library stairwell</a>
-			<a class= "fade-in" href="#">Sinclair Library reading room</a>
-			<a class= "fade-in" href="#">Bachman Hall foyer</a>
-			<a class= "fade-in" href="#">Moore hall, birds 5pm</a>
-			<a class= "fade-in" href="#">Hypothetical Archive: Tesla</a>
+	<footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Digital Arts and Humanities</h5>
+					<p class="grey-text text-lighten-4">College of Arts and Humanities at the University of Hawaiʿi at Mānoa</p>
+				</div>
+				<div class="col l4 offset-l2 s12">
+					<h5 class="white-text">Links</h5>
+					<ul>
+						<li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
-	<script src="//dahi.manoa.hawaii.edu/njs/script.js"></script>
+		<div class="footer-copyright">
+			<div class="container">
+				© 2014 Copyright Text
+			</div>
+		</div>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="/js/dirPagination.js"></script>
+	<script src="/js/app.js"></script>
 </body>
 </html>
