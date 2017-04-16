@@ -4,6 +4,7 @@ const express = require('express');
 const MongoClient = require('mongodb');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const indicative = require('indicative');
 require('dotenv').config();
 
 const app = express();
@@ -16,16 +17,28 @@ app.use(cors());
 app.get('/create', (req, res) => res.sendFile(path.join(__dirname, 'public/create.html')));
 
 app.post('/create', (req, res) => {
-	console.log(req.body);
-	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
-		if (err) {
-			return console.error('Connection Error. @mongodb');
-		}
-		try {
-			db.collection('people').insert(req.body);
-		} catch (err) {
-			console.error('Error Inserting. @mongodb');
-		}
+	console.log(req.body)
+	indicative.validateAll(req.body, {
+		first_name: 'required',
+		last_name: 'required',
+		affiliation: 'required',
+		role: 'required',
+		email: 'required|email'
+	}).then(function () {
+		MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+			if (err) {
+				return console.error('Connection Error. @mongodb');
+			}
+			try {
+				db.collection('people').insert(req.body);
+			} catch (err) {
+				console.error('Error Inserting. @mongodb');
+			}
+			return res.send('POST received.');
+		});
+	})
+	.catch(function (errors) {
+		console.log(`${JSON.stringify(req.body)} did not pass validation.`);
 	});
 });
 

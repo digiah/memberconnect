@@ -21,38 +21,38 @@
      <form method="post" action="/create" class="col s12">
        <div class="row">
          <div class="input-field col s6">
-           <input id="first_name" type="text" class="validate" name="first_name">
+           <input id="first_name" type="text" class="validate" name="first_name" required />
            <label for="first_name">First Name</label>
          </div>
          <div class="input-field col s6">
-           <input id="last_name" type="text" class="validate" name="last_name">
+           <input id="last_name" type="text" class="validate" name="last_name" required />
            <label for="last_name">Last Name</label>
          </div>
        </div>
        <div class="row">
          <div class="input-field col s6">
-           <input id="affiliation" type="text" class="validate" name="affiliation">
+           <input id="affiliation" type="text" class="validate" name="affiliation" required />
            <label for="affiliation">Affiliation</label>
          </div>
          <div class="input-field col s6">
-           <input id="role" type="text" class="validate" name="role">
+           <input id="role" type="text" class="validate" name="role" required />
            <label for="role">Role</label>
          </div>
        </div>
        <div class="row">
          <div class="input-field col s6">
-           <input id="website_link" type="text" class="validate" name="website_link">
+           <input id="website_link" type="text" name="website_link">
            <label for="website_link">Website Link</label>
          </div>
          <div class="input-field col s6">
-           <input id="video_link" type="text" class="validate" name="video_link">
+           <input id="video_link" type="text" name="video_link">
            <label for="video_link">Video Link</label>
          </div>
        </div>
        <div class="row">
          <div class="input-field col s12">
-           <input id="email" type="email" class="validate">
-           <label for="email">Email</label>
+           <input name="email" id="email" type="email" class="validate" required />
+           <label data-error="Not a valid email address." for="email">Email</label>
          </div>
        </div>
        <center>
