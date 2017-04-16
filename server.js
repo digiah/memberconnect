@@ -17,6 +17,16 @@ app.get('/create', (req, res) => res.sendFile(path.join(__dirname, 'public/creat
 
 app.post('/create', (req, res) => {
 	console.log(req.body);
+	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+		if (err) {
+			return console.error('Connection Error. @mongodb');
+		}
+		try {
+			db.collection('people').insert(req.body);
+		} catch (err) {
+			console.error('Error Inserting. @mongodb');
+		}
+	});
 });
 
 app.get('/data/:param?', (req, res) => {
@@ -38,7 +48,6 @@ app.get('/data/:param?', (req, res) => {
 				const params = req.params.param.split('|');
 				const keys = ['first_name', 'last_name', 'affiliation', 'role', 'video_link', 'video', 'email', 'website_link'];
 				if (params.length === 1 && keys.includes(params[0])) {
-					console.log(params[0]);
 					data.forEach(e => {
 						let temp = {};
 						temp[`${params[0]}`] = e[params[0]];
