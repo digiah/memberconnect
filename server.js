@@ -17,7 +17,6 @@ app.use(cors());
 app.get('/create', (req, res) => res.sendFile(path.join(__dirname, 'public/create.html')));
 
 app.post('/create', (req, res) => {
-	console.log(req.body)
 	indicative.validateAll(req.body, {
 		first_name: 'required',
 		last_name: 'required',
