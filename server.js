@@ -17,14 +17,14 @@ app.use(cors());
 app.get('/create', (req, res) => res.sendFile(path.join(__dirname, 'public/create.html')));
 
 app.post('/create', (req, res) => {
-	console.log(req.body)
 	indicative.validateAll(req.body, {
 		first_name: 'required',
 		last_name: 'required',
 		affiliation: 'required',
 		role: 'required',
 		email: 'required|email'
-	}).then(function () {
+	})
+	.then(function () {
 		MongoClient.connect(process.env.MONGO_URI, function (err, db) {
 			if (err) {
 				return console.error('Connection Error. @mongodb');
@@ -34,11 +34,39 @@ app.post('/create', (req, res) => {
 			} catch (err) {
 				console.error('Error Inserting. @mongodb');
 			}
+			db.close();
 			return res.send('POST received.');
 		});
 	})
 	.catch(function (errors) {
-		console.log(`${JSON.stringify(req.body)} did not pass validation.`);
+		console.log(`${JSON.stringify(req.body)} did not pass validation. @app.post`);
+	});
+});
+
+app.put('/create', function (req, res) {
+	indicative.validateAll(req.body, {
+		first_name: 'required',
+		last_name: 'required',
+		affiliation: 'required',
+		role: 'required',
+		email: 'required|email'
+	})
+	.then(function () {
+		MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+			if (err) {
+				return console.error('Connection Error. @mongodb');
+			}
+			try {
+				db.collection('people').updateOne({first_name: req.body.first_name}, {$set: req.body});
+			} catch (err) {
+				console.error('Error Inserting. @mongodb');
+			}
+			db.close();
+			return res.send('PUT received.');
+		});
+	})
+	.catch(function (errors) {
+		console.log(`${JSON.stringify(req.body)} did not pass validation. @app.put`);
 	});
 });
 
@@ -100,7 +128,8 @@ app.get('/data/:param?', (req, res) => {
 					valid.push(e);
 				});
 			}
-			res.json(valid);
+			db.close();
+			return res.json(valid);
 		});
 	});
 });
