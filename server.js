@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/create', (req, res) => res.sendFile(path.join(__dirname, 'public/create.html')));
+app.get('/edit', (req, res) => res.sendFile(path.join(__dirname, 'public/edit.html')));
 
 app.post('/create', (req, res) => {
 	indicative.validateAll(req.body, {
@@ -43,7 +44,7 @@ app.post('/create', (req, res) => {
 	});
 });
 
-app.put('/create', function (req, res) {
+app.put('/edit', function (req, res) {
 	indicative.validateAll(req.body, {
 		first_name: 'required',
 		last_name: 'required',
