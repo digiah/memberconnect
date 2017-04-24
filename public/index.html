@@ -36,7 +36,7 @@
 			 </div>
 		 </div>
 	 </center>
-		<div class="row z-depth-1 lighten-4">
+		<div class="row">
 			<br />
 			<nav>
 				<div class="nav-wrapper">
@@ -49,31 +49,33 @@
 					</form>
 				</div>
 			</nav>
-			<div id="cards" class="col s12 cards-container">
-				<div dir-paginate="e in data | filter:query | itemsPerPage: pageSize track by $index" current-page="currentPage" class="col m4">
-					<div class="card light-blue darken-1">
-						<div class="card-content white-text">
-							<span class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
-							<span class="card-subtitle">{{e.role}}</span>
-							<!-- <p>Blah Blah Blah Description</p> -->
-						</div>
-						<center>
-							<span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span>
-						</center>
-						<div class="card-action center-align">
-							<a style="margin-right: 0px;"ng-if="e.email" href="mailto:{{e.email}}"><i class="material-icons">email</i></a>
-							<!-- <a href="#">This is a link</a> -->
-						</div>
-						<div class="card-reveal">
-							<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
-							<h6 ng-show="e.interests.length">Interests</h6>
-							<ol class="interest-list">
-								<li class="interest-item" ng-repeat="e in e.interests track by $index">{{e}}</li>
-							</ol>
+			<div class="row z-depth-1 lighten-4">
+				<div id="cards" class="col s12 cards-container">
+					<div dir-paginate="e in data | filter:query | itemsPerPage: pageSize track by $index" current-page="currentPage" class="col m4">
+						<div class="card light-blue darken-1">
+							<div class="card-content white-text">
+								<span class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
+								<span class="card-subtitle">{{e.role}}</span>
+								<!-- <p>Blah Blah Blah Description</p> -->
+							</div>
+							<center>
+								<span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span>
+							</center>
+							<div class="card-action center-align">
+								<a style="margin-right: 0px;"ng-if="e.email" href="mailto:{{e.email}}"><i class="material-icons">email</i></a>
+								<!-- <a href="#">This is a link</a> -->
+							</div>
+							<div class="card-reveal">
+								<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
+								<h6 ng-show="e.interests.length">Interests</h6>
+								<ol class="interest-list">
+									<li class="interest-item" ng-repeat="e in e.interests track by $index">{{e}}</li>
+								</ol>
+							</div>
 						</div>
 					</div>
 				</div>
-      </div>
+			</div>
     </div>
 		<center ng-controller="queryController">
 			<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
