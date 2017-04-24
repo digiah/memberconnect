@@ -25,17 +25,20 @@ collection = db['people']
 valid = []
 
 for obj in json['feed']['entry']:
-  newObj = {}
-  newObj['first_name'] = obj['gsx$first']['$t']
-  newObj['last_name'] = obj['gsx$last']['$t']
-  newObj['email'] = obj['gsx$email']['$t']
-  newObj['affiliation'] = obj['gsx$affiliation']['$t']
-  newObj['role'] = obj['gsx$role']['$t']
-  newObj['interests'] = re.findall(r"[\w']+", obj['gsx$interests']['$t'])
-  newObj['website'] = obj['gsx$website']['$t']
-  newObj['video'] = obj['gsx$video']['$t']
-  newObj['website_link'] = obj['gsx$websitelink']['$t']
-  newObj['video_link'] = obj['gsx$videolink']['$t']
-  valid.append(newObj)
+  newObj = {
+    'first_name': obj['gsx$first']['$t'],
+    'last_name': obj['gsx$last']['$t'],
+    'email': obj['gsx$email']['$t'],
+    'affiliation': obj['gsx$affiliation']['$t'],
+    'role': obj['gsx$role']['$t'],
+    'interests': re.findall(r"[\w']+", obj['gsx$interests']['$t']),
+    'website': obj['gsx$website']['$t'],
+    'video': obj['gsx$video']['$t'],
+    'website_link': obj['gsx$websitelink']['$t'],
+    'video_link': obj['gsx$videolink']['$t']
+  }
+  check = collection.find(newObj)
+  if (check.count() == 0):
+    valid.append(newObj)
 
 collection.insert_many(valid)
