@@ -31,7 +31,7 @@ for obj in json['feed']['entry']:
     'email': obj['gsx$email']['$t'],
     'affiliation': obj['gsx$affiliation']['$t'],
     'role': obj['gsx$role']['$t'],
-    'interests': re.findall(r"[\w']+", obj['gsx$interests']['$t']),
+    'interests': obj['gsx$interests']['$t'],
     'website': obj['gsx$website']['$t'],
     'video': obj['gsx$video']['$t'],
     'website_link': obj['gsx$websitelink']['$t'],
