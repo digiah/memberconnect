@@ -70,7 +70,7 @@
 								<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
 								<h6 ng-show="e.interests.length">Interests</h6>
 								<ol class="interest-list">
-									<li class="interest-item" ng-repeat="e in e.interests track by $index">{{e}}</li>
+									<li class="interest-item" ng-repeat="e in e.interests track by $index | fuzzy: search">{{e}}</li>
 								</ol>
 							</div>
 						</div>
