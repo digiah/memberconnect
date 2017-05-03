@@ -1,4 +1,4 @@
-const App = angular.module('app', ['angularUtils.directives.dirPagination']);
+const App = angular.module('app', ['angularUtils.directives.dirPagination', 'angular.filter']);
 App.controller('controller', function ($scope, $http) {
 	$scope.query = '';
 	$scope.loading = true;
