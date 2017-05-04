@@ -52,10 +52,10 @@
 							<div class="card-content white-text">
 								<span class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
 								<span class="card-subtitle">{{e.affiliation}}</span>
-							</div>
-							<center>
+							</div>			
+							<div class="card-action center-align">
 								<span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span>
-							</center>
+							</div>
 							<div class="card-reveal">
 								<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
 								<h6 ng-show="e.interests.length">Interests</h6>
