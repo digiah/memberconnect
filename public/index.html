@@ -51,14 +51,11 @@
 						<div class="card light-blue darken-1">
 							<div class="card-content white-text">
 								<span class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
-								<span class="card-subtitle">{{e.role}}</span>
+								<span class="card-subtitle">{{e.affiliation}}</span>
 							</div>
 							<center>
 								<span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span>
 							</center>
-							<div class="card-action center-align">
-								<a style="margin-right: 0px;"ng-if="e.email" href="mailto:{{e.email}}"><i class="material-icons">email</i></a>
-							</div>
 							<div class="card-reveal">
 								<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
 								<h6 ng-show="e.interests.length">Interests</h6>
