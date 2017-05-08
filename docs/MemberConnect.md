@@ -8,9 +8,9 @@
 
 ## Data Query Routes
 - To query for data from the MongoDB, use the following route. ```http://dahi.manoa.hawaii.edu/njs/memberconnect/data/```
-   * http://dahi.manoa.hawaii.edu/njs/memberconnect/data/richard|david
-   * http://dahi.manoa.hawaii.edu/njs/memberconnect/data/first_name=richard
-   * http://dahi.manoa.hawaii.edu/njs/memberconnect/data/first_name=richard|his$
+   * http://dahi.manoa.hawaii.edu/njs/data/richard|david
+   * http://dahi.manoa.hawaii.edu/njs/data/first_name=richard
+   * http://dahi.manoa.hawaii.edu/njs/data/first_name=richard|his$
 
 ## MongoDB
 - We have a main user for the MongoDB with a secret password.
