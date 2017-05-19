@@ -27,6 +27,7 @@ app.use(cors());
 
 app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
 app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public/admin.html')));
 
 app.post('/create', (req, res) => {
 	indicative.validateAll(req.body, {

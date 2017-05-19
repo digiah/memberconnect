@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/css/ghpages-materialize.css">
+	<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="/njs" class="brand-logo center">Member Connect - Admin</a>
+    </div>
+  </nav>
+  <div class="container center-align">
+    <div class="row">
+			<br>
+			<div class="row z-depth-1 lighten-4">
+				<div id="cards" class="col s12 cards-container">
+					<div dir-paginate="e in data | filter:query | itemsPerPage: pageSize track by $index" current-page="currentPage" class="col m4">
+						<div ng-class="{
+								red: e.role.toLowerCase().includes('student') || e.role.toLowerCase().includes('undergrad'),
+								'blue-grey': e.role.toLowerCase().includes('faculty') || e.role.toLowerCase().includes('staff'),
+								purple: !(e.role.toLowerCase().includes('student') || e.role.toLowerCase().includes('undergrad') && e.role.toLowerCase().includes('faculty') || e.role.toLowerCase().includes('staff'))
+							}" class="card darken-1">
+							<div class="card-content white-text">
+								<span class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
+								<span class="card-subtitle">{{e.affiliation}}</span>
+							</div>
+							<div class="card-action center-align">
+								<span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
+								<h6 ng-show="e.interests.length">Interests</h6>
+								<p>{{e.interests}}</p>
+								<!-- <ol class="interest-list">
+									<li class="interest-item" ng-repeat="e in e.interests track by $index | fuzzy: search">{{e}}</li>
+								</ol> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+		<center ng-controller="queryController">
+			<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/njs/dirPagination.tpl.html"></dir-pagination-controls>
+		</center>
+	</div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="/js/dirPagination.js"></script>
+  <script type="text/javascript">
+  const App = angular.module('app', ['angularUtils.directives.dirPagination', 'angular.filter']);
+  App.controller('controller', function ($scope, $http) {
+    $scope.query = '';
+    $scope.loading = true;
+    $scope.currentPage = 1;
+    $scope.pageSize = 9;
+    $scope.pageChangeHandler = function (num) {
+      console.log('page changed to ' + num);
+    };
+    $http.get('http://dahi.manoa.hawaii.edu/njs/data')
+    .then(function (data) {
+      $scope.data = data.data;
+      $scope.loading = false;
+    });
+  });
+  App.controller('queryController', function ($scope) {
+    $scope.pageChangeHandler = function (num) {
+      $('.card-reveal').hide();
+      console.log('going to page ' + num);
+    };
+  });
+  </script>
+  <script type="text/javascript">
+    function deleteRequest() {
+      $.ajax({
+        url: '/edit',
+        type: 'DELETE',
+        data: {},
+        success: function (result) {
+
+        }
+      })
+    }
+  </script>
+</body>
+</html>
