@@ -118,8 +118,8 @@
     setTimeout(function() {
       $('.removeIcon').click(function() {
         let obj = {};
-        console.log('test');
         console.log($(this));
+        // extract data-* elements using jquery and submit a deleteRequest
         // deleteRequest(obj);
       });
     }, 1000);
@@ -133,10 +133,21 @@
           email: obj['email']
         }),
         type: 'DELETE',
-        // success: function(result) {
-        //     // Do something with the result
-        // }
+        success: function(result) {
+            // Do something with the result
+            // Delete the card
+
+        }
       });
+    }
+    function editRequest(obj) {
+      $.ajax({
+        url: 'http://dahi.manoa.hawaii.edu/njs/edit',
+        type: 'PUT',
+        success: function (result) {
+          // Edit the card
+        }
+      })
     }
   </script>
 </body>
