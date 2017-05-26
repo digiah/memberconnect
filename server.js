@@ -6,6 +6,17 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const indicative = require('indicative');
 require('dotenv').config();
+const spawn = require('child_process').spawn;
+
+// Synced with the Google Spreadsheet
+require('cron').CronJob({
+	cronTime: '00 00 * * * *',
+	onTick: function () {
+		spawn('python', [path.join(__dirname, 'people_input_script.py')]);
+	},
+	start: true,
+	timeZone: 'America/Los_Angeles'
+});
 
 const app = express();
 
@@ -14,7 +25,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/create', (req, res) => res.sendFile(path.join(__dirname, 'public/create.html')));
+app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
+app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public/admin.html')));
 
 app.post('/create', (req, res) => {
 	indicative.validateAll(req.body, {
@@ -35,7 +48,7 @@ app.post('/create', (req, res) => {
 				console.error('Error Inserting. @mongodb');
 			}
 			db.close();
-			return res.send('POST received.');
+			return res.sendFile(path.join(__dirname, 'index.html'));
 		});
 	})
 	.catch(function (errors) {
@@ -43,7 +56,7 @@ app.post('/create', (req, res) => {
 	});
 });
 
-app.put('/create', function (req, res) {
+app.put('/edit', function (req, res) {
 	indicative.validateAll(req.body, {
 		first_name: 'required',
 		last_name: 'required',
@@ -62,11 +75,38 @@ app.put('/create', function (req, res) {
 				console.error('Error Inserting. @mongodb');
 			}
 			db.close();
-			return res.send('PUT received.');
+			return res.sendFile(path.join(__dirname, 'index.html'));
 		});
 	})
 	.catch(function (errors) {
 		console.log(`${JSON.stringify(req.body)} did not pass validation. @app.put`);
+	});
+});
+
+app.delete('/edit', function (req, res) {
+	indicative.validateAll(req.body, {
+		first_name: 'required',
+		last_name: 'required',
+		affiliation: 'required',
+		role: 'required',
+		email: 'required|email'
+	})
+	.then(function () {
+		MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+			if (err) {
+				return console.error('Connection Error. @mongodb');
+			}
+			try {
+				db.collection('people').deleteOne(req.body);
+			} catch (err) {
+				console.error('Error Deleting. @mongodb');
+			}
+			db.close();
+			return res.sendFile(path.join(__dirname, 'index.html'));
+		});
+	})
+	.catch(function (errors) {
+		console.log(`${JSON.stringify(req.body)} did not pass validation. @app.delete`);
 	});
 });
 

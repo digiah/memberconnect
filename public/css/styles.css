@@ -2,8 +2,6 @@ body {
   background: #fdfdfd;
 }
 #cards {
-  display: flex;
-  flex-wrap: wrap;
 }
 .card {
   position: relative;
