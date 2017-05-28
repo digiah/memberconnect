@@ -59,8 +59,8 @@
 							</div>
 							<div class="card-action center-align">
 								<!-- <span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span> -->
-                <span data-first-name="{{e.first_name}}"
-                  data-last-name="{{e.last_name}}"
+                <span data-first_name="{{e.first_name}}"
+                  data-last_name="{{e.last_name}}"
                   data-affiliation="{{e.affiliation}}"
                   data-role="{{e.role}}"
                   data-email="{{e.email}}"
@@ -117,10 +117,8 @@
   <script type="text/javascript">
     setTimeout(function() {
       $('.removeIcon').click(function() {
-        let obj = {};
-        console.log($(this));
-        // extract data-* elements using jquery and submit a deleteRequest
-        // deleteRequest(obj);
+				deleteRequest($(this).data());
+				$(this).closest('div.card').remove();
       });
     }, 1000);
     function deleteRequest(obj) {
@@ -132,12 +130,7 @@
           role: obj['role'],
           email: obj['email']
         }),
-        type: 'DELETE',
-        success: function(result) {
-            // Do something with the result
-            // Delete the card
-
-        }
+        type: 'DELETE'
       });
     }
     function editRequest(obj) {
