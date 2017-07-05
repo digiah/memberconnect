@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const indicative = require('indicative');
 require('dotenv').config();
 const spawn = require('child_process').spawn;
+const $ = require('jquery');
 
 // Synced with the Google Spreadsheet
 require('cron').CronJob({
@@ -28,7 +29,10 @@ app.use(cors());
 app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
 app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
 app.get('/admin', (req, res) => {
-	if (req.query) { // Check if the query even exists
+	if (req.query.ticket) {
+		$.get(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (data) {
+			console.log(data);
+		});
 		return res.sendFile(path.join(__dirname, 'public/admin.html'))
 	}
 	return res.send("Forbidden");
