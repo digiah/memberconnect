@@ -55,14 +55,14 @@
 							}" class="card darken-1">
 							<div class="card-content white-text">
 								<span style="white-space: nowrap;" class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
-								<span class="card-subtitle">{{e.affiliation}}</span>
+								<span style="white-space: nowrap;" class="card-subtitle">{{e.affiliation}}</span>
 							</div>
 							<div class="card-action center-align">
 								<span style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span>
 							</div>
 							<div class="card-reveal">
 								<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
-								<h6>Interests</h6>
+								<h6 ng-if="e.interests.length > 0">Interests</h6>
 								<p>{{e.interests}}</p>
 								<ol class="interest-list">
 									<li class="interest-item" ng-repeat="e in e.interests track by $index | fuzzy: search">{{e}}</li>
