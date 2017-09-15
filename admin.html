@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Member Connect - Admin</title>
+	<link rel="stylesheet" href="/njs/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/njs/css/ghpages-materialize.css">
+	<link rel="stylesheet" href="/njs/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.css">
+</head>
+<body class="container" ng-app="app" ng-controller="controller">
+	<nav>
+		<div class="nav-wrapper">
+			<a href="/" class="brand-logo center">Member Connect - Admin</a>
+			<ul class="right hide-on-med-and-down">
+				<!-- <li><a href="#">Sass</a></li>
+				<li><a href="#">Components</a></li>
+				<li><a href="#">JavaScript</a></li> -->
+			</ul>
+			<form>
+				<div class="input-field">
+					<input ng-model="query" id="search" type="search" required>
+					<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+					<i class="material-icons">close</i>
+				</div>
+			</form>
+		</div>
+	</nav>
+	<div class="container">
+		<center ng-show="loading">
+			<br />
+			<div class="preloader-wrapper big active">
+			 <div class="spinner-layer spinner-blue">
+				 <div class="circle-clipper left">
+					 <div class="circle"></div>
+				 </div><div class="gap-patch">
+					 <div class="circle"></div>
+				 </div><div class="circle-clipper right">
+					 <div class="circle"></div>
+				 </div>
+			 </div>
+		 </div>
+	 </center>
+		<div class="row">
+			<br>
+			<div class="row z-depth-1 lighten-4">
+				<div id="cards" class="col s12 cards-container">
+					<div dir-paginate="e in data | filter:query | itemsPerPage: pageSize track by $index" current-page="currentPage" class="col m4">
+						<div ng-class="{
+								red: e.role.toLowerCase().includes('student') || e.role.toLowerCase().includes('undergrad'),
+								'blue-grey': e.role.toLowerCase().includes('faculty') || e.role.toLowerCase().includes('staff'),
+								purple: !(e.role.toLowerCase().includes('student') || e.role.toLowerCase().includes('undergrad') && e.role.toLowerCase().includes('faculty') || e.role.toLowerCase().includes('staff'))
+							}" class="card darken-1">
+							<div class="card-content white-text">
+								<span class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
+								<span class="card-subtitle">{{e.affiliation}}</span>
+							</div>
+							<div class="card-action center-align">
+								<!-- <span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span> -->
+                <span data-first_name="{{e.first_name}}"
+                  data-last_name="{{e.last_name}}"
+                  data-affiliation="{{e.affiliation}}"
+                  data-role="{{e.role}}"
+                  data-email="{{e.email}}"
+									data-full_name="{{e.first_name}} {{e.last_name}}"
+                  class="removeIcon" style="cursor:pointer;"><i class="material-icons">close</i></span>
+                <span data-first_name="{{e.first_name}}"
+                  data-last_name="{{e.last_name}}"
+                  data-affiliation="{{e.affiliation}}"
+                  data-role="{{e.role}}"
+                  data-email="{{e.email}}"
+									data-full_name="{{e.first_name}} {{e.last_name}}"
+									class="editIcon" style="cursor:pointer;"><i class="material-icons">mode_edit</i></span>
+              </div>
+							<div class="card-reveal">
+								<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
+								<h6 ng-show="e.interests.length">Interests</h6>
+								<p>{{e.interests}}</p>
+								<!-- <ol class="interest-list">
+									<li class="interest-item" ng-repeat="e in e.interests track by $index | fuzzy: search">{{e}}</li>
+								</ol> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+		<center ng-controller="queryController">
+			<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/dirPagination.tpl.html"></dir-pagination-controls>
+		</center>
+	</div>
+	<footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Digital Arts and Humanities</h5>
+					<p class="grey-text text-lighten-4">College of Arts and Humanities at the University of Hawaiʿi at Mānoa</p>
+				</div>
+				<div class="col l4 offset-l2 s12">
+					<!-- <h5 class="white-text">Links</h5>
+					<ul>
+						<li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+						<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+					</ul> -->
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				© 2014 Copyright Text
+			</div>
+		</div>
+	</footer>
+	<script src="/njs/js/jquery.min.js"></script>
+	<script src="/njs/js/materialize.min.js"></script>
+	<script src="/njs/js/angular.min.js"></script>
+	<script src="/njs/js/angular-filter.js"></script>
+	<script src="/njs/js/dirPagination.js"></script>
+	<script src="/njs/js/app.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.js"></script>
+  <script type="text/javascript">
+    setTimeout(function() {
+      $('.removeIcon').click(function() {
+				let that = this;
+				swal({
+				  title: `Delete this user. (${$(that).data().full_name})`,
+				  text: "Do you really want to delete this user?",
+				  type: "warning",
+				  showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+ 					confirmButtonText: 'Yes, delete them!',
+				  showLoaderOnConfirm: true
+				}).then(function(){
+					deleteRequest($(that).data());
+					$(that).closest('div.card').remove();
+				  swal(`${$(that).data().full_name} has been deleted!`);
+				});
+      });
+			$('.editIcon').click(function() {
+				let that = this;
+				let card = $(that).closest('div.card').find('div.card-content');
+				card.empty();
+				let form = `
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s12">
+								<input value="${$(that).data().first_name}" id="first_name" type="text" class="validate">
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input value="${$(that).data().last_name}" id="last_name" type="text" class="validate">
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input value="${$(that).data().affiliation}" id="affiliation" type="text" class="validate">
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input value="${$(that).data().email}" id="email" type="email" class="validate">
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input value="${$(that).data().role}" id="role" type="text" class="validate">
+							</div>
+						</div>
+						<center>
+							<a id="finish" class="waves-effect waves-light btn-large">Finish</a>
+						</center>
+				  </form>
+				</div>`;
+				card.append(form);
+				$('#finish').click(function() {
+					let obj = {
+						first_name: $('#first_name').val(),
+						last_name: $('#last_name').val(),
+						affiliation: $('#affiliation').val(),
+						email: $('#email').val(),
+						role: $('#role').val(),
+						full_name: $('#first_name').val() + ' ' + $('#last_name').val()
+					}
+					swal({
+					  title: `Edit this user. (${obj.full_name})`,
+					  text: "Are you sure you want to edit this user?",
+					  type: "warning",
+					  showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+	 					confirmButtonText: 'Yes, change it!',
+					  showLoaderOnConfirm: true
+					}).then(function(){
+						editRequest(obj);
+					  swal(`${obj.full_name} has been changed!`);
+						card.empty();
+						let content = `
+							<span class="card-title full-name">${obj.first_name + ' ' + obj.last_name}</span>
+							<span class="card-subtitle">${obj.affiliation}</span>
+						`;
+						for(e in obj) {
+							$(that).data(e, obj[e]);
+						}
+						card.append(content);
+					});
+				});
+      });
+    }, 1000);
+    function deleteRequest(obj) {
+      $.ajax({
+        url: 'http://dahi.manoa.hawaii.edu/njs/edit' + '?' + $.param({
+          first_name: obj['first_name'],
+          last_name: obj['last_name'],
+          affiliation: obj['affiliation'],
+          role: obj['role'],
+          email: obj['email']
+        }),
+        type: 'DELETE'
+      });
+    }
+    function editRequest(obj) {
+      $.ajax({
+        url: 'http://dahi.manoa.hawaii.edu/njs/edit',
+        type: 'PUT',
+				data: obj
+      })
+    }
+  </script>
+</body>
+</html>

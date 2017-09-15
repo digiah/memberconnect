@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Create</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/njs/css/ghpages-materialize.css">
+	<link rel="stylesheet" href="/njs/css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="/njs" class="brand-logo center">Member Connect - Sign Up</a>
+    </div>
+  </nav>
+  <div class="container center-align">
+    <br>
+    <div class="row grey z-depth-1 lighten-4"  style="margin: 0 auto; display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+      <form method="post" action="/njs/create" class="col s12 left-align">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="first_name" type="text" class="validate" name="first_name" required />
+            <label for="first_name">First Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="last_name" type="text" class="validate" name="last_name" required />
+            <label for="last_name">Last Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="affiliation" type="text" class="validate" name="affiliation" required />
+            <label for="affiliation">Affiliation</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="role" type="text" class="validate" name="role" required />
+            <label for="role">Role</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="website_link" type="text" name="website_link">
+            <label for="website_link">Website Link</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="video_link" type="text" name="video_link">
+            <label for="video_link">Video Link</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="email" id="email" type="email" class="validate" required />
+            <label data-error="Not a valid email address." for="email">Email</label>
+          </div>
+        </div>
+        <center>
+          <input class="waves-effect waves-light btn-large" type="submit" value="Submit">
+        </center>
+        <br>
+      </form>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</body>
+</html>

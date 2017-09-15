@@ -6,6 +6,30 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const indicative = require('indicative');
 require('dotenv').config();
+const spawn = require('child_process').spawn;
+const request = require('request');
+const nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+    host: 'smtp.example.com',
+    port: 465,
+    secure: true, // secure:true for port 465, secure:false for port 587
+    auth: {
+        user: 'username@example.com',
+        pass: 'userpass'
+    }
+});
+
+// Synced with the Google Spreadsheet
+require('cron').CronJob({
+	cronTime: '00 00 * * * *',
+	onTick: function () {
+		spawn('python', [path.join(__dirname, 'people_input_script.py')]);
+	},
+	start: true,
+	timeZone: 'America/Los_Angeles'
+});
 
 const app = express();
 
@@ -14,7 +38,40 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/create', (req, res) => res.sendFile(path.join(__dirname, 'public/create.html')));
+
+app.get('/', (req, res) => {
+	if (req.query.ticket) {
+		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs&ticket=${req.query.ticket}`, function (err, response, data) {
+			if (data === "no") {
+				return res.sendFile(path.join(__dirname, 'public/index.html'));
+			}
+		});
+	}
+	return res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
+app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
+app.get('/admin', (req, res) => {
+	// if (req.query.ticket) {
+	// 	request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
+	// 		if (data !== "no") {
+				return res.sendFile(path.join(__dirname, 'admin.html'));
+		// 	}
+		// });
+	// }
+	return res.send("Forbidden");
+});
+
+app.get('/email', (req, res) => {
+	// if (req.query.ticket) {
+	// 	request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
+	// 		if (data !== "no") {
+				return res.sendFile(path.join(__dirname, 'public/email.html'));
+		// 	}
+		// });
+	// }
+	return res.send("Forbidden");
+});
 
 app.post('/create', (req, res) => {
 	indicative.validateAll(req.body, {
@@ -35,7 +92,7 @@ app.post('/create', (req, res) => {
 				console.error('Error Inserting. @mongodb');
 			}
 			db.close();
-			return res.send('POST received.');
+			return res.sendFile(path.join(__dirname, 'index.html'));
 		});
 	})
 	.catch(function (errors) {
@@ -43,7 +100,7 @@ app.post('/create', (req, res) => {
 	});
 });
 
-app.put('/create', function (req, res) {
+app.put('/edit', function (req, res) {
 	indicative.validateAll(req.body, {
 		first_name: 'required',
 		last_name: 'required',
@@ -62,12 +119,31 @@ app.put('/create', function (req, res) {
 				console.error('Error Inserting. @mongodb');
 			}
 			db.close();
-			return res.send('PUT received.');
+			return res.sendFile(path.join(__dirname, 'public/index.html'));
 		});
 	})
 	.catch(function (errors) {
 		console.log(`${JSON.stringify(req.body)} did not pass validation. @app.put`);
 	});
+});
+
+app.delete('/edit', function (req, res) {
+	if (('first_name' in req.query) && ('last_name' in req.query) && ('affiliation' in req.query) && ('role' in req.query) && ('email' in req.query)) {
+		MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+			if (err) {
+				return console.error('Connection Error. @mongodb');
+			}
+			db.collection('people').findOneAndDelete(req.query, function (err, res) {
+				if (err) {
+					return console.error('Error Deleting. @mongodb');
+				}
+			});
+			db.close();
+			return res;
+		});
+	} else {
+		console.log(`${JSON.stringify(req.query)} did not pass validation. @app.delete`);
+	}
 });
 
 app.get('/data/:param?', (req, res) => {
@@ -132,6 +208,26 @@ app.get('/data/:param?', (req, res) => {
 			return res.json(valid);
 		});
 	});
+});
+
+app.post('/email', (req, res) => {
+	const emails = req.body.emails;
+
+	let mailOptions = {
+	    from: '"DAHI" <dahi@manoa.hawaii.edu>', // sender address
+	    to: emails, // list of receivers
+	    subject: req.body.subject, // Subject line
+	    text: req.body.body // plain text body
+	};
+
+	// send mail with defined transport object
+	transporter.sendMail(mailOptions, (error, info) => {
+	    if (error) {
+	        return console.log(error);
+	    }
+	    console.log('Message %s sent: %s', info.messageId, info.response);
+	});
+
 });
 
 app.listen(process.env.PORT, () => console.log(`💕  Its happening on port ${process.env.PORT || 9696} 💕`));
