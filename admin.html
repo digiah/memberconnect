@@ -176,19 +176,19 @@
 								<label for="role">Role</label>
 							</div>
 							<div class="input-field col s6">
-							
-								<!-- Dropdown Trigger -->
-								<a class='dropdown-button btn' href='#' data-activates='dropdown'>Drop Me!</a>
 
-								<!-- Dropdown Structure -->
-								<ul id='dropdown' class='dropdown-content'>
-									<li><a href="#!">one</a></li>
-									<li><a href="#!">two</a></li>
-									<li class="divider"></li>
-									<li><a href="#!">three</a></li>
-									<li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-									<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-								</ul>
+								// <!-- Dropdown Trigger -->
+								// <a class='dropdown-button btn' href='#' data-activates='dropdown'>Drop Me!</a>
+								//
+								// <!-- Dropdown Structure -->
+								// <ul id='dropdown' class='dropdown-content'>
+								// 	<li><a href="#!">one</a></li>
+								// 	<li><a href="#!">two</a></li>
+								// 	<li class="divider"></li>
+								// 	<li><a href="#!">three</a></li>
+								// 	<li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+								// 	<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+								// </ul>
 
 							</div>
 						</div>
@@ -234,7 +234,7 @@
     }, 1000);
     function deleteRequest(obj) {
       $.ajax({
-        url: 'http://dahi.manoa.hawaii.edu/njs/edit' + '?' + $.param({
+        url: 'https://dahi.manoa.hawaii.edu/njs/edit' + '?' + $.param({
           first_name: obj['first_name'],
           last_name: obj['last_name'],
           affiliation: obj['affiliation'],
@@ -246,7 +246,7 @@
     }
     function editRequest(obj) {
       $.ajax({
-        url: 'http://dahi.manoa.hawaii.edu/njs/edit',
+        url: 'https://dahi.manoa.hawaii.edu/njs/edit',
         type: 'PUT',
 				data: obj
       })
