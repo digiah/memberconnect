@@ -55,8 +55,8 @@
 								purple: !(e.role.toLowerCase().includes('student') || e.role.toLowerCase().includes('undergrad') && e.role.toLowerCase().includes('faculty') || e.role.toLowerCase().includes('staff'))
 							}" class="card darken-1">
 							<div class="card-content white-text">
-								<span class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
-								<span class="card-subtitle">{{e.affiliation}}</span>
+								<span style="white-space: nowrap;" class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
+								<span style="white-space: nowrap;" class="card-subtitle">{{e.affiliation}}</span>
 							</div>
 							<div class="card-action center-align">
 								<!-- <span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span> -->
