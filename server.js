@@ -91,11 +91,11 @@ app.get('/user/:id', (req, res) => {
 				callback(result);
 			});
 		}
-		return query(function (data) {
-			return data.filter(function (e) {
+		query(function (data) {
+			res.json(data.filter(function (e) {
 				req.params.id == e.email.substring(0, e.email.indexOf('@'));
 			});
-		});
+		}));
 	});
 });
 
