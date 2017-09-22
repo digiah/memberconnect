@@ -73,6 +73,23 @@ app.get('/email', (req, res) => {
 	return res.send("Forbidden");
 });
 
+app.get('/user/:id', (req, res) => {
+	if (!req.params.id) return;
+	function query(callback) {
+		db.collection('people').find().toArray(function (err, result) {
+			if (err) {
+				return console.error('Error converting data to array');
+			}
+			callback(result);
+		});
+	}
+	query(function (data) {
+		return data.filter(function (e) {
+			req.params.id == e.email.substring(0, e.email.indexOf('@'));
+		});
+	});
+});
+
 app.post('/create', (req, res) => {
 	indicative.validateAll(req.body, {
 		first_name: 'required',
@@ -106,7 +123,8 @@ app.put('/edit', function (req, res) {
 		last_name: 'required',
 		affiliation: 'required',
 		role: 'required',
-		email: 'required|email'
+		email: 'required|email',
+		full_name: 'required'
 	})
 	.then(function () {
 		MongoClient.connect(process.env.MONGO_URI, function (err, db) {
