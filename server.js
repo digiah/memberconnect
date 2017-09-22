@@ -93,6 +93,9 @@ app.get('/user/:id', (req, res) => {
 		}
 		query(function (data) {
 			res.json(data.filter(function (e) {
+				console.log(req.params);
+				console.log(req.params.id);
+				console.log(e.email.substring(0, e.email.indexOf('@')));
 				req.params.id == e.email.substring(0, e.email.indexOf('@'));
 			}));
 		});
