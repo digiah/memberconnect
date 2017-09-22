@@ -52,24 +52,24 @@ app.get('/', (req, res) => {
 app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
 app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
 app.get('/admin', (req, res) => {
-	// if (req.query.ticket) {
-	// 	request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
-	// 		if (data !== "no") {
+	if (req.query.ticket) {
+		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
+			if (data !== "no") {
 				return res.sendFile(path.join(__dirname, 'admin.html'));
-		// 	}
-		// });
-	// }
+			}
+		});
+	}
 	return res.send("Forbidden");
 });
 
 app.get('/email', (req, res) => {
-	// if (req.query.ticket) {
-	// 	request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
-	// 		if (data !== "no") {
+	if (req.query.ticket) {
+		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
+			if (data !== "no") {
 				return res.sendFile(path.join(__dirname, 'public/email.html'));
-		// 	}
-		// });
-	// }
+			}
+		});
+	}
 	return res.send("Forbidden");
 });
 
@@ -124,6 +124,7 @@ app.put('/edit', function (req, res) {
 	})
 	.catch(function (errors) {
 		console.log(`${JSON.stringify(req.body)} did not pass validation. @app.put`);
+		return errors;
 	});
 });
 
