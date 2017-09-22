@@ -10,6 +10,10 @@ const spawn = require('child_process').spawn;
 const request = require('request');
 const nodemailer = require('nodemailer');
 
+if (!process.env.MONGO_URI) process.env.MONGO_URI = 'mongodb://localhost:27017/memberconnect';
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'production';
+if (!process.env.PORT) process.env.PORT = 9696;
+
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
     host: 'smtp.example.com',
