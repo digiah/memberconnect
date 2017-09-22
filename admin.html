@@ -144,7 +144,7 @@
 				});
       });
 			$('.editIcon').click(function() {
-				if (!editing) return;
+				if (editing) return;
 				editing = true;
 				let that = this;
 				let card = $(that).closest('div.card').find('div.card-content');
