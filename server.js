@@ -93,11 +93,7 @@ app.get('/user/:id', (req, res) => {
 		}
 		query(function (data) {
 			res.json(data.filter(function (e) {
-				if(req.params.id == e.email.substring(0, e.email.indexOf('@'))) {
-					console.log(req.params.id);
-					console.log(e.email);
-				}
-				req.params.id == e.email.substring(0, e.email.indexOf('@'));
+				return req.params.id == e.email.substring(0, e.email.indexOf('@'));
 			}));
 		});
 	});
