@@ -91,7 +91,7 @@ app.get('/user/:id', (req, res) => {
 				callback(result);
 			});
 		}
-		query(function (data) {
+		return query(function (data) {
 			return data.filter(function (e) {
 				req.params.id == e.email.substring(0, e.email.indexOf('@'));
 			});
