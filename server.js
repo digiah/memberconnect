@@ -94,8 +94,8 @@ app.get('/user/:id', (req, res) => {
 		query(function (data) {
 			res.json(data.filter(function (e) {
 				req.params.id == e.email.substring(0, e.email.indexOf('@'));
-			});
-		}));
+			}));
+		});
 	});
 });
 
