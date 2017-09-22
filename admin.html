@@ -124,6 +124,7 @@
 	<script src="/njs/js/app.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.js"></script>
   <script type="text/javascript">
+		var editing = false;
     setTimeout(function() {
       $('.removeIcon').click(function() {
 				let that = this;
@@ -143,6 +144,8 @@
 				});
       });
 			$('.editIcon').click(function() {
+				if (!editing) return;
+				editing = true;
 				let that = this;
 				let card = $(that).closest('div.card').find('div.card-content');
 				card.empty();
@@ -228,6 +231,7 @@
 							$(that).data(e, obj[e]);
 						}
 						card.append(content);
+						editing = false;
 					});
 				});
       });
