@@ -79,17 +79,22 @@ app.get('/email', (req, res) => {
 
 app.get('/user/:id', (req, res) => {
 	if (!req.params.id) return;
-	function query(callback) {
-		db.collection('people').find().toArray(function (err, result) {
-			if (err) {
-				return console.error('Error converting data to array');
-			}
-			callback(result);
-		});
-	}
-	query(function (data) {
-		return data.filter(function (e) {
-			req.params.id == e.email.substring(0, e.email.indexOf('@'));
+	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+		if (err) {
+			return console.error('Connection Error. @mongodb');
+		}
+		function query(callback) {
+			db.collection('people').find().toArray(function (err, result) {
+				if (err) {
+					return console.error('Error converting data to array');
+				}
+				callback(result);
+			});
+		}
+		query(function (data) {
+			return data.filter(function (e) {
+				req.params.id == e.email.substring(0, e.email.indexOf('@'));
+			});
 		});
 	});
 });
