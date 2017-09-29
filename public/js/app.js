@@ -7,7 +7,7 @@ App.controller('controller', function ($scope, $http) {
 	$scope.pageChangeHandler = function (num) {
 		console.log('page changed to ' + num);
 	};
-	$http.get('http://dahi.manoa.hawaii.edu/njs/data')
+	$http.get('https://dahi.manoa.hawaii.edu/njs/data')
   .then(function (data) {
 		$scope.data = data.data;
 		$scope.loading = false;
