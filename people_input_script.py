@@ -42,3 +42,9 @@ for obj in json['feed']['entry']:
     valid.append(newObj)
 
 collection.insert_many(valid)
+
+for people in valid:
+  people['username'] = people['email'].split('@')[0]
+  people['password'] = 'password'
+  people['achievements'] = []
+  db['users'].insert_one(people)
