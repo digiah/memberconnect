@@ -14,12 +14,7 @@
 <body class="container" ng-app="app" ng-controller="controller">
 	<nav>
 		<div class="nav-wrapper">
-			<a href="/" class="brand-logo center">Member Connect - Admin</a>
-			<ul class="right hide-on-med-and-down">
-				<!-- <li><a href="#">Sass</a></li>
-				<li><a href="#">Components</a></li>
-				<li><a href="#">JavaScript</a></li> -->
-			</ul>
+			<a href="/" class="brand-logo center">Member Connect</a>
 			<form>
 				<div class="input-field">
 					<input ng-model="query" id="search" type="search" required>
@@ -58,30 +53,10 @@
 								<span style="white-space: nowrap;" class="card-title full-name">{{e.first_name + ' ' + e.last_name}}</span>
 								<span style="white-space: nowrap;" class="card-subtitle">{{e.affiliation}}</span>
 							</div>
-							<div class="card-action center-align">
-								<!-- <span ng-if="(e.interests.length)" style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span> -->
-                <span data-first_name="{{e.first_name}}"
-                  data-last_name="{{e.last_name}}"
-                  data-affiliation="{{e.affiliation}}"
-                  data-role="{{e.role}}"
-                  data-email="{{e.email}}"
-									data-full_name="{{e.first_name}} {{e.last_name}}"
-                  class="removeIcon" style="cursor:pointer;"><i class="material-icons">close</i></span>
-                <span data-first_name="{{e.first_name}}"
-                  data-last_name="{{e.last_name}}"
-                  data-affiliation="{{e.affiliation}}"
-                  data-role="{{e.role}}"
-                  data-email="{{e.email}}"
-									data-full_name="{{e.first_name}} {{e.last_name}}"
-									class="editIcon" style="cursor:pointer;"><i class="material-icons">mode_edit</i></span>
-              </div>
 							<div class="card-reveal">
 								<span class="card-title grey-text text-darken-4">{{e.first_name + ' ' + e.last_name}}<i class="material-icons right">close</i></span>
 								<h6 ng-show="e.interests.length">Interests</h6>
 								<p>{{e.interests}}</p>
-								<!-- <ol class="interest-list">
-									<li class="interest-item" ng-repeat="e in e.interests track by $index | fuzzy: search">{{e}}</li>
-								</ol> -->
 							</div>
 						</div>
 					</div>
@@ -114,7 +89,41 @@
 	<script src="/njs/js/dirPagination.js"></script>
 	<script src="/njs/js/app.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.js"></script>
-  <script type="text/javascript">
+	<script type="text/javascript">
+		var controllers = $(`
+		<div class="card-action center-align">
+      <span data-first_name="{{e.first_name}}"
+        data-last_name="{{e.last_name}}"
+        data-affiliation="{{e.affiliation}}"
+        data-role="{{e.role}}"
+        data-email="{{e.email}}"
+				data-full_name="{{e.first_name}} {{e.last_name}}"
+        class="removeIcon" style="cursor:pointer;"><i class="material-icons">close</i></span>
+      <span data-first_name="{{e.first_name}}"
+        data-last_name="{{e.last_name}}"
+        data-affiliation="{{e.affiliation}}"
+        data-role="{{e.role}}"
+        data-email="{{e.email}}"
+				data-full_name="{{e.first_name}} {{e.last_name}}"
+				class="editIcon" style="cursor:pointer;"><i class="material-icons">mode_edit</i></span>
+    </div>`);
+		function getUrlVars() {
+		    var vars = [], hash;
+		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+		    for(var i = 0; i < hashes.length; i++)
+		    {
+		        hash = hashes[i].split('=');
+		        vars.push(hash[0]);
+		        vars[hash[0]] = hash[1];
+		    }
+		    return vars;
+		}
+		const obj = getUrlVars();
+		var auth = $.ajax({type: "GET", url: `https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/&ticket=${obj.ticket}`, async: false}).responseText;
+		// Find Username from auth
+		// Attach controllers
+	</script>
+	<script type="text/javascript">
 		var editing = false;
     setTimeout(function() {
       $('.removeIcon').click(function() {

@@ -10,6 +10,10 @@ const spawn = require('child_process').spawn;
 const request = require('request');
 const nodemailer = require('nodemailer');
 
+if (!process.env.MONGO_URI) process.env.MONGO_URI = 'mongodb://localhost:27017/memberconnect';
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'production';
+if (!process.env.PORT) process.env.PORT = 9696;
+
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
     host: 'smtp.example.com',
@@ -42,8 +46,8 @@ app.use(cors());
 app.get('/', (req, res) => {
 	if (req.query.ticket) {
 		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs&ticket=${req.query.ticket}`, function (err, response, data) {
-			if (data === "no") {
-				return res.sendFile(path.join(__dirname, 'public/index.html'));
+			if (data !== "no") {
+				return res.sendFile(path.join(__dirname, 'authenticated.html'));
 			}
 		});
 	}
@@ -52,25 +56,47 @@ app.get('/', (req, res) => {
 app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
 app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
 app.get('/admin', (req, res) => {
-	// if (req.query.ticket) {
-	// 	request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
-	// 		if (data !== "no") {
+	if (req.query.ticket) {
+		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
+			if (data !== "no") {
 				return res.sendFile(path.join(__dirname, 'admin.html'));
-		// 	}
-		// });
-	// }
+			}
+		});
+	}
 	return res.send("Forbidden");
 });
 
 app.get('/email', (req, res) => {
-	// if (req.query.ticket) {
-	// 	request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
-	// 		if (data !== "no") {
+	if (req.query.ticket) {
+		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
+			if (data !== "no") {
 				return res.sendFile(path.join(__dirname, 'public/email.html'));
-		// 	}
-		// });
-	// }
+			}
+		});
+	}
 	return res.send("Forbidden");
+});
+
+app.get('/user/:id', (req, res) => {
+	if (!req.params.id) return;
+	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+		if (err) {
+			return console.error('Connection Error. @mongodb');
+		}
+		function query(callback) {
+			db.collection('people').find().toArray(function (err, result) {
+				if (err) {
+					return console.error('Error converting data to array');
+				}
+				callback(result);
+			});
+		}
+		query(function (data) {
+			res.json(data.filter(function (e) {
+				return req.params.id == e.email.substring(0, e.email.indexOf('@'));
+			}));
+		});
+	});
 });
 
 app.post('/create', (req, res) => {
@@ -106,7 +132,8 @@ app.put('/edit', function (req, res) {
 		last_name: 'required',
 		affiliation: 'required',
 		role: 'required',
-		email: 'required|email'
+		email: 'required|email',
+		full_name: 'required'
 	})
 	.then(function () {
 		MongoClient.connect(process.env.MONGO_URI, function (err, db) {
@@ -124,6 +151,7 @@ app.put('/edit', function (req, res) {
 	})
 	.catch(function (errors) {
 		console.log(`${JSON.stringify(req.body)} did not pass validation. @app.put`);
+		return errors;
 	});
 });
 
