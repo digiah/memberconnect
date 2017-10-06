@@ -46,8 +46,8 @@ app.use(cors());
 app.get('/', (req, res) => {
 	if (req.query.ticket) {
 		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs&ticket=${req.query.ticket}`, function (err, response, data) {
-			if (data === "no") {
-				return res.sendFile(path.join(__dirname, 'public/index.html'));
+			if (data !== "no") {
+				return res.sendFile(path.join(__dirname, 'authenticated.html'));
 			}
 		});
 	}
