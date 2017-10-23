@@ -46,7 +46,7 @@ app.use(cors());
 app.get('/', (req, res) => {
 	if (req.query.ticket) {
 		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs&ticket=${req.query.ticket}`, function (err, response, data) {
-			if (data !== "no") {
+      if (data.trim() !== "no") {
 				return res.sendFile(path.join(__dirname, 'authenticated.html'));
 			}
 		});
@@ -59,7 +59,7 @@ app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.ht
 app.get('/admin', (req, res) => {
 	if (req.query.ticket) {
 		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
-			if (data !== "no") {
+			if (data.trim() !== "no") {
 				return res.sendFile(path.join(__dirname, 'admin.html'));
 			}
 		});
