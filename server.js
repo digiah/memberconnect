@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
 	}
 	return res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-app.get('/profile', (req, res) => res.sendFile(path.join(__dirname), 'public/profile.html'));
+app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'public/profile.html')));
 app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
 app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
 app.get('/admin', (req, res) => {
