@@ -56,8 +56,8 @@
 							<div class="card-action center-align">
 								<span style="cursor:pointer;" class="activator center-align"><i class="material-icons">navigation</i></span>
 							</div>
-							<div class="card-action center-align">
-								<span ng-if="username == {{e.username}}" data-first_name="{{e.first_name}}"
+							<div ng-if="username == {{e.username}}" class="card-action center-align">
+								<span data-first_name="{{e.first_name}}"
 									data-last_name="{{e.last_name}}"
 									data-affiliation="{{e.affiliation}}"
 									data-role="{{e.role}}"
