@@ -5,6 +5,7 @@ App.controller('profilecontroller', function ($scope, $http) {
 		$scope.data = data.data;
 		$scope.loading = false;
 		$scope.profile = $scope.data.find((e) => e.username == $.username);
+		console.log($scope.profile);
 	});
 
 	function getUrlVars() {
