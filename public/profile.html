@@ -13,6 +13,56 @@
 </head>
 <body class="container" ng-app="profileapp" ng-controller="profilecontroller">
 
+	<div class="container">
+		<div class="section">
+			<div class="card">
+				<div class="card-image waves-effect waves-block waves-light">
+					<img src="/njs/img/profile.jpg" alt="Profile Background" class="activator">
+				</div>
+				<figure class="card-profile-image">
+					<img src="/njs/img/avatar.jpg" alt="profile image" class="circle z-depth-2 responsive-img activator">
+				</figure>
+				<div class="card-content">
+					<div class="row">
+						<div class="col s3 offset-s2">
+								<h4 class="card-title grey-text text-darken-4">{{username}}</h4>
+								<p class="medium-small grey-text">{{profile.role}}</p>
+						</div>
+						<div class="col s2 center-align">
+							 <h4 class="card-title grey-text text-darken-4">{{profile.affiliation}}</h4>
+							 <p class="medium-small grey-text">Affiliation</p>
+					 	</div>
+						<div class="col s2 center-align">
+							 <h4 class="card-title grey-text text-darken-4">3</h4>
+							 <p class="medium-small grey-text">Achievements</p>
+					 	</div>
+						<!-- <div class="col s2 center-align">
+								<h4 class="card-title grey-text text-darken-4">$ 1,253,000</h4>
+								<p class="medium-small grey-text">Business Profit</p>
+						</div> -->
+						<div class="col s1 right-align">
+							 <a class="btn-floating activator waves-effect waves-light darken-2 right">
+									 <i class="mdi-action-perm-identity"></i>
+							 </a>
+						 </div>
+					</div>
+				</div>
+				<div class="card-reveal">
+            <p>
+              <span class="card-title grey-text text-darken-4">{{username}}<i class="mdi-navigation-close right"></i></span>
+              <span><i class="mdi-action-perm-identity cyan-text text-darken-2"></i> {{profile.role}}</span>
+            </p>
+
+            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+
+            <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> +1 (612) 222 8989</p>
+            <p><i ng-if="profile.email" class="mdi-communication-email cyan-text text-darken-2"></i>{{profile.email}}</p>
+            <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 18th June 1990</p>
+            <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i> BAR - AUS</p>
+        </div>
+			</div>
+		</div>
+	</div>
 	<h1 id="username">{{username}}</h1>
 
 
