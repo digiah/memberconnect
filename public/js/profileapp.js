@@ -4,6 +4,7 @@ App.controller('profilecontroller', function ($scope, $http) {
   .then(function (data) {
 		$scope.data = data.data;
 		$scope.loading = false;
+		console.log($scope.data);
 		$scope.profile = $scope.data.find((e) => e.username == $.username);
 		console.log($scope.profile);
 	});
