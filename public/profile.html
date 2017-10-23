@@ -11,10 +11,11 @@
 	<link rel="stylesheet" href="/njs/css/styles.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.css">
 </head>
-<body class="container">
-	<div class="container">
-		<h1 id="username"></h1>
-	</div>
+<body class="container" ng-app="profileapp" ng-controller="profilecontroller">
+
+	<h1 id="username">{{username}}</h1>
+
+
 	<footer class="page-footer">
 		<div class="container">
 			<div class="row">
@@ -34,23 +35,6 @@
 	<script src="/njs/js/materialize.min.js"></script>
 	<script src="/njs/js/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.js"></script>
-	<script type="text/javascript">
-		function getUrlVars() {
-		    var vars = [], hash;
-		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-		    for(var i = 0; i < hashes.length; i++)
-		    {
-		        hash = hashes[i].split('=');
-		        vars.push(hash[0]);
-		        vars[hash[0]] = hash[1];
-		    }
-		    return vars;
-		}
-		const obj = getUrlVars();
-		var auth = $.ajax({type: "GET", url: `https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/&ticket=${obj.ticket}`, async: false}).responseText;
-		// Find Username from auth
-		$('#username').val(auth);
-		// Fill out profile
-	</script>
+	<script src="/njs/js/profileapp.js"></script>
 </body>
 </html>
