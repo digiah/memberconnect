@@ -63,8 +63,9 @@ app.get('/admin', (req, res) => {
 				return res.sendFile(path.join(__dirname, 'admin.html'));
 			}
 		});
+	} else {
+		return res.send("Forbidden");
 	}
-	return res.send("Forbidden");
 });
 
 app.get('/email', (req, res) => {
