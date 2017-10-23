@@ -17,10 +17,10 @@
 		<div class="section">
 			<div class="card">
 				<div class="card-image waves-effect waves-block waves-light">
-					<img src="/njs/img/profile.jpg" alt="Profile Background" class="activator">
+					<img src="/njs/img/user-profile-bg.jpg" alt="Profile Background" class="activator">
 				</div>
 				<figure class="card-profile-image">
-					<img src="/njs/img/avatar.jpg" alt="profile image" class="circle z-depth-2 responsive-img activator">
+					<img src="/njs/img/avatar.png" alt="profile image" class="circle z-depth-2 responsive-img activator">
 				</figure>
 				<div class="card-content">
 					<div class="row">
@@ -28,7 +28,7 @@
 								<h4 class="card-title grey-text text-darken-4">{{username}}</h4>
 								<p class="medium-small grey-text">{{profile.role}}</p>
 						</div>
-						<div class="col s2 center-align">
+						<div ng-if="profile.affiliation" class="col s2 center-align">
 							 <h4 class="card-title grey-text text-darken-4">{{profile.affiliation}}</h4>
 							 <p class="medium-small grey-text">Affiliation</p>
 					 	</div>
