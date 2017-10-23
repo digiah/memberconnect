@@ -19,9 +19,7 @@ App.controller('profilecontroller', function ($scope, $http) {
 			return vars;
 	}
 	const obj = getUrlVars();
-	var auth = $.ajax({type: "GET", url: `https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/&ticket=${obj.ticket}`, async: false}).responseText;
-	// Find Username from auth
-	$.username = auth;
-	// Fill out profile
-
+	var auth = $.ajax({type: "GET", url: `https://cors-anywhere.herokuapp.com/https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/&ticket=${obj.ticket}`, async: false}).responseText;
+	console.log(auth);
+	$scope.username = auth;
 });
