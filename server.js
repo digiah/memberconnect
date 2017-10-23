@@ -37,7 +37,6 @@ require('cron').CronJob({
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
@@ -54,6 +53,8 @@ app.get('/', (req, res) => {
 		return res.sendFile(path.join(__dirname, 'public/index.html'));
 	}
 });
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'public/profile.html')));
 app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
 app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
