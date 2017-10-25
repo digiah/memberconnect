@@ -29,6 +29,7 @@ for obj in json['feed']['entry']:
     'first_name': obj['gsx$first']['$t'],
     'last_name': obj['gsx$last']['$t'],
     'email': obj['gsx$email']['$t'],
+    'username': obj['gsx$email']['$t'].split('@', 1)[0],
     'affiliation': obj['gsx$affiliation']['$t'],
     'role': obj['gsx$role']['$t'],
     'interests': obj['gsx$interests']['$t'],
@@ -42,3 +43,9 @@ for obj in json['feed']['entry']:
     valid.append(newObj)
 
 collection.insert_many(valid)
+
+for people in valid:
+  people['username'] = people['email'].split('@')[0]
+  people['password'] = 'password'
+  people['achievements'] = []
+  db['users'].insert_one(people)

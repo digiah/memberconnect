@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Member Connect - Profile</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/njs/css/ghpages-materialize.css">
+	<link rel="stylesheet" href="/njs/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.css">
+</head>
+<body class="container" ng-app="profileapp" ng-controller="profilecontroller">
+
+	<div class="container">
+		<div class="section">
+			<div class="card">
+				<div style="height: 250px;" class="card-image waves-effect waves-block waves-light">
+					<img src="/njs/img/user-profile-bg.jpg" alt="Profile Background" class="activator">
+				</div>
+				<figure style="width: 110px; position: absolute; top: 190px; z-index: 1; left: 40px; cursor: pointer; margin: 0;" class="card-profile-image">
+					<img src="/njs/img/avatar.png" alt="profile image" class="circle z-depth-2 responsive-img activator">
+				</figure>
+				<div style="margin-top: -40px;" class="card-content">
+					<div class="row">
+						<div class="col s3 offset-s2">
+								<h4 class="card-title grey-text text-darken-4">{{username}}</h4>
+								<p class="medium-small grey-text">{{profile.role}}</p>
+						</div>
+						<div ng-if="profile.affiliation" class="col s2 center-align">
+							 <h4 class="card-title grey-text text-darken-4">{{profile.affiliation}}</h4>
+							 <p class="medium-small grey-text">Affiliation</p>
+					 	</div>
+						<div class="col s2 center-align">
+							 <h4 class="card-title grey-text text-darken-4">3</h4>
+							 <p class="medium-small grey-text">Achievements</p>
+					 	</div>
+						<!-- <div class="col s2 center-align">
+								<h4 class="card-title grey-text text-darken-4">$ 1,253,000</h4>
+								<p class="medium-small grey-text">Business Profit</p>
+						</div> -->
+						<div class="col s1 right-align">
+							 <a class="btn-floating activator waves-effect waves-light darken-2 right">
+								 <i class="material-icons">face</i>
+							 </a>
+						 </div>
+					</div>
+				</div>
+				<div class="card-reveal">
+            <p>
+              <span class="card-title grey-text text-darken-4">{{username}}<i class="material-icons right">face</i></span>
+              <span><i class="material-icons cyan-text text-darken-2">work</i> {{profile.role}}</span>
+            </p>
+
+            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+
+            <!-- <p><i class="material-icons cyan-text text-darken-2">phone</i> +1 (612) 222 8989</p> -->
+            <p><i ng-if="profile.email" class="material-icons cyan-text text-darken-2">email</i>{{profile.email}}</p>
+            <!-- <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 18th June 1990</p> -->
+            <!-- <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i> BAR - AUS</p> -->
+        </div>
+			</div>
+		</div>
+	</div>
+	
+	<footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Digital Arts and Humanities</h5>
+					<p class="grey-text text-lighten-4">College of Arts and Humanities at the University of Hawaiʿi at Mānoa</p>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				© <script type="text/javascript">document.write(new Date().getFullYear());</script> Copyright Text
+			</div>
+		</div>
+	</footer>
+	<script src="/njs/js/jquery.min.js"></script>
+	<script src="/njs/js/materialize.min.js"></script>
+	<script src="/njs/js/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.js"></script>
+	<script src="/njs/js/profileapp.js"></script>
+</body>
+</html>

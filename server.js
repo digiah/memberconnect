@@ -37,7 +37,6 @@ require('cron').CronJob({
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
@@ -46,24 +45,29 @@ app.use(cors());
 app.get('/', (req, res) => {
 	if (req.query.ticket) {
 		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs&ticket=${req.query.ticket}`, function (err, response, data) {
-			if (data !== "no") {
+      if (data.trim() !== "no") {
 				return res.sendFile(path.join(__dirname, 'authenticated.html'));
 			}
 		});
+	} else {
+		return res.sendFile(path.join(__dirname, 'public/index.html'));
 	}
-	return res.sendFile(path.join(__dirname, 'public/index.html'));
 });
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'public/profile.html')));
 app.get('/new', (req, res) => res.sendFile(path.join(__dirname, 'public/new.html')));
 app.get('/test', (req, res) => res.sendFile(path.join(__dirname, 'public/test.html')));
 app.get('/admin', (req, res) => {
 	if (req.query.ticket) {
 		request(`https://authn.hawaii.edu/cas/validate?service=https://dahi.manoa.hawaii.edu/njs/admin&ticket=${req.query.ticket}`, function (err, response, data) {
-			if (data !== "no") {
+			if (data.trim() !== "no") {
 				return res.sendFile(path.join(__dirname, 'admin.html'));
 			}
 		});
+	} else {
+		return res.send("Forbidden");
 	}
-	return res.send("Forbidden");
 });
 
 app.get('/email', (req, res) => {
