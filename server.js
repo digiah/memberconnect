@@ -242,6 +242,20 @@ app.get('/data/:param?', (req, res) => {
 	});
 });
 
+app.get('/achievements/:user?', (req, res) => {
+	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+		if (err) {
+			return console.error('Connection Error. @mongodb');
+		}
+		db.collection('achievements').find().toArray(function (err, result) {
+			if (err) {
+				return console.error('Error converting data to array');
+			}
+			return res.json(result);
+		});
+	});
+});
+
 app.post('/email', (req, res) => {
 	const emails = req.body.emails;
 
