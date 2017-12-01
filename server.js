@@ -256,6 +256,51 @@ app.get('/achievements/:user?', (req, res) => {
 	});
 });
 
+app.post('/achievements/create', (req, res) => {
+	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+		if (err) {
+			return console.error('Connection Error. @mongodb');
+		}
+		try {
+			db.collection('achievements').insert(req.body);
+		} catch (err) {
+			console.error('Error Inserting. @mongodb');
+		}
+		db.close();
+		return res.send("success");
+	});
+});
+
+app.put('/achievements/edit', function (req, res) {
+	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+		if (err) {
+			return console.error('Connection Error. @mongodb');
+		}
+		try {
+			db.collection('achievements').updateOne({id: req.body.id}, {$set: req.body});
+		} catch (err) {
+			console.error('Error Editing. @mongodb');
+		}
+		db.close();
+		return res.send("success"));
+	});
+});
+
+app.delete('/achievements/delete', function (req, res) {
+	MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+		if (err) {
+			return console.error('Connection Error. @mongodb');
+		}
+		db.collection('achievements').findOneAndDelete(req.query, function (err, res) {
+			if (err) {
+				return console.error('Error Deleting. @mongodb');
+			}
+		});
+		db.close();
+		return res.send("success");
+	});
+});
+
 app.post('/email', (req, res) => {
 	const emails = req.body.emails;
 
